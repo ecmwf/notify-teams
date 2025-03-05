@@ -1,9 +1,9 @@
 # notify-teams
 
-[![Changelog](https://img.shields.io/github/package-json/v/ecmwf-actions/notify-teams)](CHANGELOG.md)
-[![Build Status](https://img.shields.io/github/workflow/status/ecmwf-actions/notify-teams/ci/main)](https://github.com/ecmwf-actions/notify-teams/actions/workflows/ci.yml?query=branch:main)
-[![Code Coverage](https://img.shields.io/codecov/c/gh/ecmwf-actions/notify-teams/branch/main)](https://codecov.io/gh/ecmwf-actions/notify-teams/branch/main)
-[![Licence](https://img.shields.io/github/license/ecmwf-actions/notify-teams)](https://github.com/ecmwf-actions/notify-teams/blob/main/LICENSE)
+[![Changelog](https://img.shields.io/github/package-json/v/ecmwf/notify-teams)](CHANGELOG.md)
+[![Build Status](https://img.shields.io/github/workflow/status/ecmwf/notify-teams/ci/main)](https://github.com/ecmwf/notify-teams/actions/workflows/ci.yml?query=branch:main)
+[![Code Coverage](https://img.shields.io/codecov/c/gh/ecmwf/notify-teams/branch/main)](https://codecov.io/gh/ecmwf/notify-teams/branch/main)
+[![Licence](https://img.shields.io/github/license/ecmwf/notify-teams)](https://github.com/ecmwf/notify-teams/blob/main/LICENSE)
 
 A Github action that posts messages via Microsoft Teams when a workflow job fails.
 
@@ -30,7 +30,7 @@ A Github action that posts messages via Microsoft Teams when a workflow job fail
 steps:
 - name: Notify Teams
   if: always() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-  uses: ecmwf-actions/notify-teams@v1
+  uses: ecmwf/notify-teams@v1
   with:
     incoming_webhook: ${{ secrets.MS_TEAMS_INCOMING_WEBHOOK }}
 ```
@@ -58,7 +58,7 @@ jobs:
     if: always() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
     steps:
     - name: Notify Teams
-      uses: ecmwf-actions/notify-teams@v1
+      uses: ecmwf/notify-teams@v1
       with:
         incoming_webhook: ${{ secrets.MS_TEAMS_INCOMING_WEBHOOK }}
         needs_context: ${{ toJSON(needs) }}
@@ -70,7 +70,7 @@ jobs:
 steps:
 - name: Notify Teams
   if: failure() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-  uses: ecmwf-actions/notify-teams@v1
+  uses: ecmwf/notify-teams@v1
   with:
     incoming_webhook: ${{ secrets.MS_TEAMS_INCOMING_WEBHOOK }}
     notify_on: |
