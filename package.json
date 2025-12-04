@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ecmwf-actions/notify-teams"
+    "url": "git+https://github.com/ecmwf/notify-teams"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
