@@ -184,6 +184,34 @@ describe('sendTeamsMessage', () => {
         });
     });
 
+    it.each`
+        statusCode
+        ${200}
+        ${201}
+        ${202}
+        ${204}
+    `('resolves the promise when MS Teams responds with a 2xx status code ($statusCode)', async ({ statusCode }) => {
+        expect.assertions(1);
+
+        const failingJobs: JobStatus[] = [
+            { name: 'qa', value: 'success' },
+            { name: 'ci', value: 'failure' },
+            { name: 'deploy', value: 'skipped' },
+            { name: 'notify', value: 'success' },
+        ];
+
+        (HttpClient.prototype.constructor as jest.Mock).mockImplementationOnce(() => ({
+            postJson: () => Promise.resolve({
+                statusCode,
+            }),
+        }));
+
+        await expect(sendTeamsMessage(failingJobs, previousConclusion, notifyOn, repository, branch, sha, workflow, runId, incomingWebhook)).resolves.toStrictEqual({
+            workflowStatus: 'failure',
+            messageSent: true,
+        });
+    });
+
     it('rejects the promise if request for sending messages returns unexpected status code', async () => {
         expect.assertions(1);
 
