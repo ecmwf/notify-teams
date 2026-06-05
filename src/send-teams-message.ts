@@ -120,7 +120,7 @@ const sendTeamsMessage = async (jobs: JobStatus[], previousConclusion: string, n
         try {
             const response = await new HttpClient().postJson(incomingWebhook, messageCard);
 
-            if (isError(response.statusCode != 200, `Wrong response code while sending message to MS Teams: ${response.statusCode}`))
+            if (isError(!response.statusCode || response.statusCode < 200 || response.statusCode >= 300, `Wrong response code while sending message to MS Teams: ${response.statusCode}`))
                 return Promise.reject(result);
         }
         catch (error) {
